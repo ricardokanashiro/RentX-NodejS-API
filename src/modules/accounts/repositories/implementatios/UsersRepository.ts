@@ -12,16 +12,25 @@ class UsersRepository implements IUsersRepository {
     }
 
     // eslint-disable-next-line prettier/prettier
-    async create({ name, username, email, driver_license, password }: ICreateUsersDTO): Promise<void> {
+    async create({ name, email, driver_license, password }: ICreateUsersDTO): Promise<void> {
         const user = this.repository.create({
             name,
-            username,
             email,
             driver_license,
             password,
         });
 
         await this.repository.save(user);
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.repository.findOne({ email });
+        return user;
+    }
+
+    async findById(id: string): Promise<User> {
+        const user = await this.repository.findOne(id);
+        return user;
     }
 }
 

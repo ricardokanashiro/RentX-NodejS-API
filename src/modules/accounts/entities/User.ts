@@ -1,15 +1,13 @@
-import { Column, CreateDateColumn, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+@Entity("users")
 class User {
     @PrimaryColumn()
-    name: string;
-
-    @Column()
-    username: string;
-
-    @Column()
     id: string;
+
+    @Column()
+    name: string;
 
     @Column()
     password: string;
@@ -26,7 +24,7 @@ class User {
     @CreateDateColumn()
     created_at: Date;
 
-    costructor() {
+    constructor() {
         if (!this.id) {
             this.id = uuidV4();
         }

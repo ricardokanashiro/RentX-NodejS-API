@@ -1,5 +1,7 @@
+import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 
+import { AppError } from "../../../../Errors/appError";
 import { ICreateUsersDTO } from "../../dtos/ICreateUsersDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 
@@ -11,13 +13,20 @@ class CreateUserUseCase {
     ) {}
 
     // eslint-disable-next-line prettier/prettier
-    async execute({ name, username, email, driver_license, password }: ICreateUsersDTO) {
+    async execute({ name, email, driver_license, password }: ICreateUsersDTO): Promise<void> {
+        const userAlreadyExists = await this.usersRepository.findByEmail(email);
+
+        if (userAlreadyExists) {
+            throw new AppError("User already exists!");
+        }
+
+        const passwordHash = await hash(password, 8);
+
         await this.usersRepository.create({
             name,
-            username,
             email,
+            password: passwordHash,
             driver_license,
-            password,
         });
     }
 }

@@ -12,6 +12,4 @@ categoriesRoutes.post("/", createCategoryController.handle);
 
 categoriesRoutes.get("/", listCategoriesController.handle);
 
-console.log(ListCategoriesController);
-
 export { categoriesRoutes };
