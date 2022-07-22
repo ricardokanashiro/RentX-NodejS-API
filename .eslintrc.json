@@ -52,7 +52,7 @@
         "warn",
         {
             "newlinesBetween": "always",
-            "groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
+            "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
             "alphabetize": { "order": "asc", "ignoreCase": true }
         }
         ],
@@ -60,7 +60,7 @@
         "error",
         { "devDependencies": ["**/*.spec.js"] }
         ],
-        "prettier/prettier": "error"
+        "prettier/prettier": "off"
     },
 
     "settings": {
